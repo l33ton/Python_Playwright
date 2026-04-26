@@ -44,7 +44,7 @@ def test_if_changing_password_works_with_valid_data(logged_in, dashboard_page, n
     "Jake333",
     "A",
     "Jake!t1"])
-def test_if_changing_password_shows_error_with_invalid_data(dashboard_page, new_password):
+def test_if_changing_password_shows_error_with_invalid_data(logged_in, dashboard_page, new_password):
     # Arrange
     error_message = dashboard_page.page.get_by_text(ERROR_MESSAGE).first
     # Arrangement is the same as the previous test
