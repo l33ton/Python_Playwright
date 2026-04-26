@@ -18,11 +18,30 @@ jobs:
             pip install -r requirements.txt
             playwright install --with-deps chromium
 
-      - name: Run App from Docker Hub
-        run: |
-            
-            docker pull dave0a/setupdocker-app:latest
-            docker run -d -p 8081:8081 dave0a/setupdocker-app:latest
+      - name: Start Database and App
+        run: |            
+            docker network create smart-garage-net
+          
+            docker run -d \
+              --name mariadb \
+              --network smart-garage-net \
+              -e MYSQL_ROOT_PASSWORD=rootpass \
+              -e MYSQL_DATABASE=smart_garage \
+              -p 3307:3306 \
+              dave0a/setupdocker-mariadb:latest
+    
+            sleep 30
+
+            docker run -d \
+              --name app \
+              --network smart-garage-net \
+              -p 8081:8081 \
+              -e SPRING_DATASOURCE_URL=jdbc:mariadb://mariadb:3306/smart_garage \
+              -e SPRING_DATASOURCE_USERNAME=root \
+              -e SPRING_DATASOURCE_PASSWORD=rootpass \
+              dave0a/setupdocker-app:latest
+
+            sleep 10
 
       - name: Wait for App
         run: sleep 10
