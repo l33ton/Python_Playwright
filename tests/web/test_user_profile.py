@@ -5,15 +5,17 @@ from constants import *
 
 def test_if_navigate_to_my_profile_works(dashboard_page):
     # Arrange
-
+    # Our arrangement is the dashboard_page fixture
     # Act
-
+    # Dashboard_page fixture is navigating to profile_url
     # Assert
     expect(dashboard_page.page).to_have_url(EXPECTED_PROFILE_URL)
+
 @pytest.mark.parametrize("first_name, last_name", [
     ("Ivan", "Georgiev"),
     ("VeryLongNameThatMightBreakTheUI", "Test"),
     ("O'Neil", "D-r")])
+
 def test_if_changing_name_works(dashboard_page, first_name, last_name, change_to_original_name):
     # Arrange
     expected_result = f"Full name: {first_name} {last_name}"
@@ -23,10 +25,29 @@ def test_if_changing_name_works(dashboard_page, first_name, last_name, change_to
     expect(dashboard_page.page.locator(FULL_NAME_LOCATOR)).to_contain_text(expected_result)
     # Cleanup - we are cleaning with a fixture called "change_to_original_name"
 
-def test_if_changing_password_works(dashboard_page, change_password_to_common):
+@pytest.mark.parametrize("new_password", [
+    "JaKeTheDog1!",
+    "Adventuretime1*",
+    "FinnTheHuman2+"])
+def test_if_changing_password_works_with_valid_data(dashboard_page, new_password, change_password_to_common):
     # Arrange
-
+    # Our arrangement is mark.parametrize
     # Act
-    dashboard_page.change_password(COMMON_PASSWORD, NEW_PASSWORD)
+    dashboard_page.change_password(COMMON_PASSWORD, new_password)
     # Assert
+    expect(dashboard_page.page).to_have_url(EXPECTED_PROFILE_URL)
     # Cleanup - we are cleaning with a fixture called "change_password_to_common" and password is changed to the original one
+
+@pytest.mark.parametrize("new_password", [
+    "JaKeTheDog1",
+    "Jake333",
+    "A",
+    "Jake!t1"])
+def test_if_changing_password_shows_error_with_invalid_data(dashboard_page, new_password):
+    # Arrange
+    error_message = dashboard_page.page.get_by_text(ERROR_MESSAGE).first
+    # Arrangement is the same as the previous test
+    # Act
+    dashboard_page.change_password(COMMON_PASSWORD, new_password)
+    # Assert
+    expect(error_message).to_be_visible()

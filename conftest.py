@@ -16,18 +16,22 @@ def logged_in(login_page):
     login_page.login(customer["username"], COMMON_PASSWORD)
 
     return login_page.page
+
 @pytest.fixture
 def dashboard_page(page, base_url):
     page.goto(base_url + PROFILE_URL)
     yield DashboardPage(page)
+
 @pytest.fixture
 def change_to_original_name(dashboard_page):
     yield
     dashboard_page.change_first_and_last_name(first_name="Alex", last_name="Rider")
+
 @pytest.fixture
-def change_password_to_common(dashboard_page):
+def change_password_to_common(dashboard_page, new_password):
     yield
-    dashboard_page.change_password(NEW_PASSWORD, COMMON_PASSWORD)
+    dashboard_page.change_password(new_password, COMMON_PASSWORD)
+
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args, request):
     if "skip_auth" in request.keywords:
