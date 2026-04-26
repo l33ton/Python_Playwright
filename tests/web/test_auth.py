@@ -4,11 +4,13 @@ from playwright.sync_api import expect
 from constants import *
 
 @pytest.mark.skip_auth
-def test_login_with_valid_credentials(logged_in, login_page, base_url):
+def test_login_with_valid_credentials(login_page, base_url):
     # Arrange
-    # We are using only logged_in fixture, it provides us with the needed acts for our test
+    customer = TEST_VALID_USERS["customer"]
+    # Act
+    login_page.login(customer["username"], COMMON_PASSWORD)
     # Assert
-    expect(logged_in).to_have_url(base_url)
+    expect(login_page.page).to_have_url(base_url)
 @pytest.mark.skip_auth
 def test_login_with_invalid_credentials(login_page, base_url):
     # Arrange
