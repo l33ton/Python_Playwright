@@ -1,8 +1,9 @@
+import os
 import pytest
 
-from tests.constants import LOGIN_URL, COMMON_PASSWORD, TEST_VALID_USERS, PROFILE_URL, NEW_PASSWORD
-from tests.pages.dashboard_page import DashboardPage
-from tests.pages.login_page import LoginPage
+from constants import LOGIN_URL, COMMON_PASSWORD, TEST_VALID_USERS, PROFILE_URL, NEW_PASSWORD
+from pages.dashboard_page import DashboardPage
+from pages.login_page import LoginPage
 
 @pytest.fixture
 def login_page(base_url, page):
@@ -27,4 +28,17 @@ def change_to_original_name(dashboard_page):
 def change_password_to_common(dashboard_page):
     yield
     dashboard_page.change_password(NEW_PASSWORD, COMMON_PASSWORD)
+@pytest.fixture(scope="session")
+def browser_context_args(browser_context_args, request):
+    if "skip_auth" in request.keywords:
+        return browser_context_args
 
+    auth_path = os.path.join(os.path.dirname(__file__), "auth.json")
+
+    if os.path.exists(auth_path):
+        return {
+            **browser_context_args,
+            "storage_state": auth_path
+        }
+
+    return browser_context_args
