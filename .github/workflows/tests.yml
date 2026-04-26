@@ -28,7 +28,7 @@ jobs:
         run: sleep 10
 
       - name: Run Playwright tests
-        run: pytest --browser chromium --headless
+        run: pytest
         env:
             BASE_URL: http://localhost:8081
             PYTHONPATH: .
