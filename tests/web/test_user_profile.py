@@ -10,6 +10,7 @@ def test_if_navigate_to_my_profile_works(dashboard_page):
     # Dashboard_page fixture is navigating to profile_url
     # Assert
     expect(dashboard_page.page).to_have_url(EXPECTED_PROFILE_URL)
+    expect(dashboard_page.page.locator(EDIT_INFO_BUTTON_LOCATOR)).to_be_visible()
 
 @pytest.mark.parametrize("first_name, last_name", [
     ("Ivan", "Georgiev"),
