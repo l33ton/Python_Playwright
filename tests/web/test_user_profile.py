@@ -2,7 +2,7 @@ import pytest
 from playwright.sync_api import expect
 from constants import *
 
-def test_if_navigate_to_my_profile_works(logged_in, dashboard_page):
+def test_if_navigate_to_my_profile_works(dashboard_page):
     # Arrange
     # Our arrangement is the dashboard_page fixture
     # Act
@@ -15,7 +15,7 @@ def test_if_navigate_to_my_profile_works(logged_in, dashboard_page):
     ("Ivan", "Georgiev"),
     ("VeryLongNameThatMightBreakTheUI", "Test"),
     ("O'Neil", "D-r")])
-def test_if_changing_name_works(logged_in, dashboard_page, first_name, last_name, change_to_original_name):
+def test_if_changing_name_works(dashboard_page, first_name, last_name, change_to_original_name):
     # Arrange
     expected_result = f"Full name: {first_name} {last_name}"
     # Act
@@ -28,7 +28,7 @@ def test_if_changing_name_works(logged_in, dashboard_page, first_name, last_name
     "JaKeTheDog1!",
     "Adventuretime1*",
     "FinnTheHuman2+"])
-def test_if_changing_password_works_with_valid_data(logged_in, dashboard_page, new_password, change_password_to_common):
+def test_if_changing_password_works_with_valid_data(dashboard_page, new_password, change_password_to_common):
     # Arrange
     # Our arrangement is mark.parametrize
     # Act
@@ -42,7 +42,7 @@ def test_if_changing_password_works_with_valid_data(logged_in, dashboard_page, n
     "Jake333",
     "A",
     "Jake!t1"])
-def test_if_changing_password_shows_error_with_invalid_data(logged_in, dashboard_page, new_password):
+def test_if_changing_password_shows_error_with_invalid_data(dashboard_page, new_password):
     # Arrange
     error_message = dashboard_page.page.get_by_text(ERROR_MESSAGE).first
     # Arrangement is the same as the previous test
