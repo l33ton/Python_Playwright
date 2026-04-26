@@ -30,6 +30,8 @@ jobs:
               -p 3307:3306 \
               dave0a/setupdocker-mariadb:latest
     
+            sleep 5
+
             docker run -d \
               --name app \
               --network smart-garage-net \
@@ -39,7 +41,14 @@ jobs:
               -e SPRING_DATASOURCE_PASSWORD=rootpass \
               dave0a/setupdocker-app:latest
 
+            sleep 5
+
+      - name: Wait for App
+        run: sleep 5
+
       - name: Run Playwright tests
-        run: pytest --tracing retain-on-failure --maxfail=3
+        run: |
+             sleep 5 
+             pytest --tracing retain-on-failure --maxfail=3
         env:
             PYTHONPATH: .
