@@ -49,6 +49,7 @@ jobs:
       - name: Run Playwright tests
         run: |
              sleep 5 
+             pytest tests/web/auth_setup.py::test_save_auth_state --tracing retain-on-failure
              pytest --tracing retain-on-failure --maxfail=3
         env:
             PYTHONPATH: .
