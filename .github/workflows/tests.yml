@@ -50,6 +50,12 @@ jobs:
         run: |
              sleep 5 
              pytest tests/web/auth_setup.py::test_save_auth_state --tracing retain-on-failure
-             pytest --tracing retain-on-failure --maxfail=3
+             pytest --tracing retain-on-failure --maxfail=3 --junitxml=results.xml
         env:
             PYTHONPATH: .
+            
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+            files: "results.xml"
