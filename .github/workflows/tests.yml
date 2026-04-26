@@ -1,6 +1,9 @@
 name: Playwright Tests
 on: [push, pull_request]
-
+permissions:
+  contents: read
+  checks: write        # Това е най-важното за EnricoMi репорта
+  pull-requests: write
 jobs:
   run-tests:
     runs-on: ubuntu-latest
