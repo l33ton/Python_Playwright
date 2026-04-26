@@ -2,4 +2,29 @@ name: Playwright Tests
 on: [push, pull_request]
 
 jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout_code
+        uses: actions/checkout@v4
 
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+            pip install -r requirements.txt
+            playwright install --with-deps chromium
+
+      - name: Run App from Docker Hub
+        run: |
+            docker pull dave0a/setupdocker:latest
+            docker run -d -p 8081:8081 dave0a/setupdocker:latest
+
+      - name: Wait for App
+        run: sleep 15
+
+      - name: Run Playwright tests
+        run: pytest --browser chromium --headless
