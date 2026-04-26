@@ -20,7 +20,8 @@ jobs:
 
       - name: Run App from Docker Hub
         run: |
-            docker pull dave0a/setupdocker:latest
+            
+            docker pull dave0a/setupdocker-app:latest
             docker run -d -p 8081:8081 dave0a/setupdocker-app:latest
 
       - name: Wait for App
