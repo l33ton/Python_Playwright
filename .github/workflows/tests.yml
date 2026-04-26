@@ -51,5 +51,4 @@ jobs:
              sleep 5 
              pytest --tracing retain-on-failure --maxfail=3
         env:
-            BASE_URL: http://localhost:8081
             PYTHONPATH: .
