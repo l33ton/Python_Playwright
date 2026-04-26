@@ -49,7 +49,7 @@ jobs:
       - name: Run Playwright tests
         run: |
              sleep 10 
-             pytest --tracing retain-on-failure
+             pytest --tracing retain-on-failure --maxfail=3
         env:
             BASE_URL: http://localhost:8081
             PYTHONPATH: .
