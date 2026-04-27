@@ -1,9 +1,10 @@
 import os
 import pytest
 
-from constants import LOGIN_URL, COMMON_PASSWORD, TEST_VALID_USERS, PROFILE_URL, NEW_PASSWORD
+from constants import LOGIN_URL, TEST_VALID_USERS, PROFILE_URL, NEW_PASSWORD
 from pages.dashboard_page import DashboardPage
 from pages.login_page import LoginPage
+from dotenv import load_dotenv
 
 @pytest.fixture
 def login_page(base_url, page):
@@ -12,8 +13,10 @@ def login_page(base_url, page):
     yield LoginPage(page)
 @pytest.fixture
 def logged_in(login_page):
+    load_dotenv()
     customer = TEST_VALID_USERS["customer"]
-    login_page.login(customer["username"], COMMON_PASSWORD)
+    common_password = os.getenv("COMMON_PASSWORD")
+    login_page.login(customer["username"], common_password)
 
     return login_page.page
 

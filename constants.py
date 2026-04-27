@@ -16,10 +16,9 @@ TEST_MOCK_USERS = {
     "mock_without_username": {"username": ""}
 }
 MOCK_PASSWORD = "25252525A."
-COMMON_PASSWORD = "password123%D"
 
 # PROFILE LOCATORS AND CONSTANTS
-PROFILE_URL = "users/1/details"
+PROFILE_URL = "users/{account_id}/details"
 EXPECTED_PROFILE_URL = "http://localhost:8081/users/1/details"
 EDIT_INFO_BUTTON_LOCATOR = "#edit-info-button"
 FIRST_NAME_INPUT_LOCATOR = "#first-name-input"

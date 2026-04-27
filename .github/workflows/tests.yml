@@ -56,6 +56,7 @@ jobs:
              pytest --tracing retain-on-failure --maxfail=3 --junitxml=results.xml
         env:
             PYTHONPATH: .
+            COMMON_PASSWORD: ${{ secrets.COMMON_PASSWORD }}
             
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
