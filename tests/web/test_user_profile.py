@@ -1,6 +1,7 @@
 import pytest
 from playwright.sync_api import expect
 from constants import *
+from env_config import COMMON_PASSWORD
 
 def test_if_navigate_to_my_profile_works(dashboard_page):
     # Arrange
