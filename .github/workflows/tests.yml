@@ -42,8 +42,6 @@ jobs:
               -e SPRING_DATASOURCE_PASSWORD=rootpass \
               dave0a/setupdocker-app:latest
 
-            
-
       - name: Wait for App
         run: until curl -s http://localhost:8081 > /dev/null; do sleep 2; done
 
