@@ -19,7 +19,9 @@ def logged_in(login_page):
 
 @pytest.fixture
 def dashboard_page(page, base_url):
-    page.goto(base_url + PROFILE_URL)
+    customer = TEST_VALID_USERS["customer"]
+    profile_url = PROFILE_URL.format(account_id=customer["account_id"])
+    page.goto(base_url + profile_url)
     yield DashboardPage(page)
 
 @pytest.fixture

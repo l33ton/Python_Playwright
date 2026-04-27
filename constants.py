@@ -7,7 +7,7 @@ LOGIN_FORM_LOCATOR = "#login-form"
 FORGOT_PASSWORD_LOCATOR = ".nounderline"
 
 TEST_VALID_USERS = {
-    "customer": {"username": "alex_rider"},
+    "customer": {"username": "alex_rider", "account_id": "1"},
     "employee": {"username": "felix_jackson"},
     "mechanic": {"username": "julia_grey"}
 }
