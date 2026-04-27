@@ -33,8 +33,6 @@ jobs:
               -p 3307:3306 \
               dave0a/setupdocker-mariadb:latest
     
-            sleep 5
-
             docker run -d \
               --name app \
               --network smart-garage-net \
@@ -44,14 +42,13 @@ jobs:
               -e SPRING_DATASOURCE_PASSWORD=rootpass \
               dave0a/setupdocker-app:latest
 
-            sleep 5
+            
 
       - name: Wait for App
-        run: sleep 5
+        run: until curl -s http://localhost:8081 > /dev/null; do sleep 2; done
 
       - name: Run Playwright tests
         run: |
-             sleep 5 
              pytest tests/web/auth_setup.py::test_save_auth_state --tracing retain-on-failure
              pytest --tracing retain-on-failure --maxfail=3 --junitxml=results.xml
         env:
