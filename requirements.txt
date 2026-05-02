@@ -3,3 +3,4 @@ pytest-base-url
 playwright
 pytest
 python-dotenv
+faker
