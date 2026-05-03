@@ -2,7 +2,7 @@ import pytest
 from utils.data_generator import DataGenerator
 
 gen = DataGenerator()
-
+@pytest.mark.skip_auth
 @pytest.mark.parametrize("brand_name, make", [
     ("Audi", "A4"),
     ("Audi", "A6"),
