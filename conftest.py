@@ -47,12 +47,13 @@ def browser_context_args(browser_context_args, request):
     if "skip_auth" in request.keywords:
         return browser_context_args
 
-    auth_path = os.path.join(os.path.dirname(__file__), "auth.json")
+    auth_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "auth.json"))
 
     if os.path.exists(auth_path):
+        print("The file is found")
         return {
             **browser_context_args,
             "storage_state": auth_path
         }
-
+    print("The file is not found, we continue without authentication")
     return browser_context_args
