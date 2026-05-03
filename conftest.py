@@ -33,8 +33,10 @@ def vehicles_page(page, base_url):
     yield VehiclesPage(page)
 
 @pytest.fixture
-def change_to_original_name(dashboard_page):
+def change_to_original_name(dashboard_page, base_url):
     yield
+    dashboard_page.navigate_to_profile(base_url + PROFILE_URL)
+    dashboard_page.page.reload()
     dashboard_page.change_first_and_last_name(first_name="Alex", last_name="Rider")
 
 @pytest.fixture
