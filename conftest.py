@@ -36,9 +36,14 @@ def vehicles_page(page, base_url):
 def change_to_original_name(dashboard_page, base_url):
     yield
     dashboard_page.navigate_to_profile(base_url + PROFILE_URL)
-    dashboard_page.page.reload()
     dashboard_page.change_first_and_last_name(first_name="Alex", last_name="Rider")
-
+    if not dashboard_page.edit_info_button_locator.is_visible():
+        dashboard_page.page.reload()
+    try:
+        dashboard_page.edit_info_button_locator.wait_for(state="visible", timeout=5000)
+        dashboard_page.change_first_and_last_name(first_name="Alex", last_name="Rider")
+    except Exception as e:
+        print(f"Cleanup failed: {e}")
 @pytest.fixture
 def change_password_to_common(dashboard_page, new_password):
     yield
