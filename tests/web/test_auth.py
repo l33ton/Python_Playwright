@@ -10,7 +10,7 @@ def test_login_with_valid_credentials(login_page, base_url):
     # Act
     login_page.login(customer["username"], COMMON_PASSWORD)
     # Assert
-    expect(login_page.page).to_have_url(base_url)
+    expect(login_page.page.locator(MY_DETAILS_LOCATOR)).to_be_visible()
 @pytest.mark.skip_auth
 def test_login_with_invalid_credentials(login_page, base_url):
     # Arrange

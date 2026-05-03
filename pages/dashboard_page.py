@@ -19,6 +19,7 @@ class DashboardPage(BasePage):
         self.page.goto(f"{base_url}")
 
     def change_first_and_last_name(self, first_name, last_name):
+        self.edit_info_button_locator.wait_for(state="visible")
         self.edit_info_button_locator.click()
         self.first_name_input_locator.fill(first_name)
         self.last_name_input_locator.fill(last_name)

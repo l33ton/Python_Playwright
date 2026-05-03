@@ -5,6 +5,7 @@ PASSWORD_INPUT_LOCATOR = "#login-password"
 LOGIN_URL = "auth/login"
 LOGIN_FORM_LOCATOR = "#login-form"
 FORGOT_PASSWORD_LOCATOR = ".nounderline"
+MY_DETAILS_LOCATOR = "//a[normalize-space()='My Details']"
 
 TEST_VALID_USERS = {
     "customer": {"username": "alex_rider", "account_id": "1"},
