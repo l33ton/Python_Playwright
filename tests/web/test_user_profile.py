@@ -27,7 +27,7 @@ def test_if_changing_name_works(dashboard_page, first_name, last_name, change_to
 
 @pytest.mark.parametrize("new_password", [
     "JaKeTheDog1!",
-    "Adventuretime1*",
+    "Adventuretime1!",
     "FinnTheHuman2+"])
 def test_if_changing_password_works_with_valid_data(dashboard_page, new_password, change_password_to_common):
     # Arrange
