@@ -1,4 +1,4 @@
-'''
+```
 TECHNICAL DOCUMENTATION: PYTHON PLAYWRIGHT AUTOMATION FRAMEWORK
 
 1. OVERVIEW
@@ -45,4 +45,4 @@ Python_Playwright/
 - Timeouts are managed globally in constants.py.
 - Detailed logs and settings are defined in pytest.ini.
 - Sensitive files are excluded from Git via .gitignore.
-'''
+```
