@@ -52,7 +52,7 @@ def browser_context_args(browser_context_args, request):
     if "skip_auth" in request.keywords:
         return browser_context_args
 
-    auth_path = os.path.join(os.path.dirname(__file__), "auth.json")
+    auth_path = os.path.join(os.getcwd(), "auth.json")
 
     if os.path.exists(auth_path):
         return {
