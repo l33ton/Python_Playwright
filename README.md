@@ -37,7 +37,6 @@ Python_Playwright/
 
 ## 5. EXECUTION COMMANDS
 - Run all tests: pytest
-- Run for a specific environment: pytest --env=stage
 - Run in headed mode: pytest --headed
 
 ## 6. BEST PRACTICES
