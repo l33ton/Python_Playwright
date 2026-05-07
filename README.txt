@@ -1,5 +1,4 @@
-```
-TECHNICAL DOCUMENTATION: PYTHON PLAYWRIGHT AUTOMATION FRAMEWORK
+```TECHNICAL DOCUMENTATION: PYTHON PLAYWRIGHT AUTOMATION FRAMEWORK
 
 1. OVERVIEW
 This project is an automated end-to-end testing framework designed for web applications. It utilizes Python, Pytest, and Playwright. The architecture follows the Page Object Model (POM) design pattern to ensure code reusability, easy maintenance, and scalability.
@@ -44,5 +43,4 @@ Python_Playwright/
 6. BEST PRACTICES
 - Timeouts are managed globally in constants.py.
 - Detailed logs and settings are defined in pytest.ini.
-- Sensitive files are excluded from Git via .gitignore.
-```
+- Sensitive files are excluded from Git via .gitignore.```
