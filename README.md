@@ -4,6 +4,7 @@
 This project is an automated end-to-end testing framework designed for web applications. It utilizes Python, Pytest, and Playwright. The architecture follows the Page Object Model (POM) design pattern to ensure code reusability, easy maintenance, and scalability.
 
 ## 2. PROJECT STRUCTURE
+```text
 Python_Playwright/
   pages/
     base_page.py        - Parent class with common browser interactions
@@ -23,7 +24,7 @@ Python_Playwright/
   constants.py          - Global constants and configuration variables
   env_config.py         - Environment-specific settings
   pytest.ini            - Global configuration for the pytest runner
-
+```
 ## 3. KEY FEATURES
 - Page Object Model (POM): Separation of test logic from UI locators.
 - Environment Switching: Supports multiple environments (Stage, Prod).
