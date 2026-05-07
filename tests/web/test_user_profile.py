@@ -16,11 +16,11 @@ def test_if_navigate_to_my_profile_works(dashboard_page):
     ("Ivan", "Georgiev"),
     ("VeryLongNameThatMightBreakTheUI", "Test"),
     ("O'Neil", "D-r")])
-def test_if_changing_name_works(dashboard_page, first_name, last_name, change_to_original_name):
+def test_if_changing_name_works(dashboard_page, base_url, first_name, last_name, change_to_original_name):
     # Arrange
     expected_result = f"Full name: {first_name} {last_name}"
     # Act
-    dashboard_page.change_first_and_last_name(first_name, last_name)
+    dashboard_page.change_first_and_last_name(first_name, last_name, base_url)
     # Assert
     expect(dashboard_page.page.locator(FULL_NAME_LOCATOR)).to_contain_text(expected_result)
     # Cleanup - we are cleaning with a fixture called "change_to_original_name"
