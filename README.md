@@ -27,7 +27,6 @@ Python_Playwright/
 ```
 ## 3. KEY FEATURES
 - Page Object Model (POM): Separation of test logic from UI locators.
-- Environment Switching: Supports multiple environments (Stage, Prod).
 - Authentication Management: Uses storage_state to skip login steps.
 - Automated Data Generation: Employs Faker for unique test data.
 
