@@ -18,9 +18,9 @@ class DashboardPage(BasePage):
     def navigate_to_profile(self, base_url):
         self.page.goto(f"{base_url}")
 
-    def change_first_and_last_name(self, first_name, last_name):
+    def change_first_and_last_name(self, first_name, last_name, base_url):
         if not self.edit_info_button_locator.is_visible():
-            self.page.reload()
+            self.navigate_to_profile(base_url + PROFILE_URL)
             self.edit_info_button_locator.wait_for(state="visible")
         self.edit_info_button_locator.click()
         self.first_name_input_locator.fill(first_name)

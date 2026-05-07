@@ -4,7 +4,7 @@ from constants import *
 from env_config import COMMON_PASSWORD
 
 @pytest.mark.skip_auth
-def test_login_with_valid_credentials(login_page, base_url):
+def test_login_with_valid_credentials(login_page):
     # Arrange
     customer = TEST_VALID_USERS["customer"]
     # Act
