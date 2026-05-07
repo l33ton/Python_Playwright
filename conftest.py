@@ -43,9 +43,14 @@ def change_to_original_name(dashboard_page, base_url):
         dashboard_page.change_first_and_last_name(first_name="Alex", last_name="Rider")
 
 @pytest.fixture
-def change_password_to_common(dashboard_page, new_password):
+def change_password_to_common(base_url, dashboard_page, new_password):
     yield
-    dashboard_page.change_password(new_password, COMMON_PASSWORD)
+    dashboard_page.navigate_to_profile(base_url + PROFILE_URL)
+    if not dashboard_page.change_password_button_locator.is_visible():
+        dashboard_page.navigate_to_profile(base_url + PROFILE_URL)
+
+    if dashboard_page.change_password_button_locator.is_visible():
+        dashboard_page.change_password(new_password, COMMON_PASSWORD)
 
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args, request):
