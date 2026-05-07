@@ -1,10 +1,9 @@
-```text
-TECHNICAL DOCUMENTATION: PYTHON PLAYWRIGHT AUTOMATION FRAMEWORK
+#TECHNICAL DOCUMENTATION: PYTHON PLAYWRIGHT AUTOMATION FRAMEWORK
 
-1. OVERVIEW
+##1. OVERVIEW
 This project is an automated end-to-end testing framework designed for web applications. It utilizes Python, Pytest, and Playwright. The architecture follows the Page Object Model (POM) design pattern to ensure code reusability, easy maintenance, and scalability.
 
-2. PROJECT STRUCTURE
+##2. PROJECT STRUCTURE
 Python_Playwright/
   pages/
     base_page.py        - Parent class with common browser interactions
@@ -25,24 +24,23 @@ Python_Playwright/
   env_config.py         - Environment-specific settings
   pytest.ini            - Global configuration for the pytest runner
 
-3. KEY FEATURES
+##3. KEY FEATURES
 - Page Object Model (POM): Separation of test logic from UI locators.
 - Environment Switching: Supports multiple environments (Stage, Prod).
 - Authentication Management: Uses storage_state to skip login steps.
 - Automated Data Generation: Employs Faker for unique test data.
 
-4. SETUP AND INSTALLATION
+##4. SETUP AND INSTALLATION
 - Prerequisites: Python 3.8+ and pip.
 - Install packages: pip install -r requirements.txt
 - Install browsers: playwright install
 
-5. EXECUTION COMMANDS
+##5. EXECUTION COMMANDS
 - Run all tests: pytest
 - Run for a specific environment: pytest --env=stage
 - Run in headed mode: pytest --headed
 
-6. BEST PRACTICES
+##6. BEST PRACTICES
 - Timeouts are managed globally in constants.py.
 - Detailed logs and settings are defined in pytest.ini.
 - Sensitive files are excluded from Git via .gitignore.
-```
