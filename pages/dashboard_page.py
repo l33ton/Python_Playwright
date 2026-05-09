@@ -1,7 +1,6 @@
 from constants import *
 from pages.base_page import BasePage
 
-
 class DashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
@@ -16,16 +15,26 @@ class DashboardPage(BasePage):
         self.save_password_button_locator = page.get_by_role("button", name= "Save")
 
     def navigate_to_profile(self, base_url):
-        self.page.goto(f"{base_url}")
+        target_url = f"{base_url}{PROFILE_URL}"
+        self.page.goto(target_url)
 
     def change_first_and_last_name(self, first_name, last_name, base_url):
-        if not self.edit_info_button_locator.is_visible():
-            self.navigate_to_profile(base_url + PROFILE_URL)
-            self.edit_info_button_locator.wait_for(state="visible")
-        self.edit_info_button_locator.click()
-        self.first_name_input_locator.fill(first_name)
-        self.last_name_input_locator.fill(last_name)
-        self.save_info_button_locator.click()
+        user_id = TEST_VALID_USERS["employee"]["account_id"]
+        target_url = f"{base_url}users/{user_id}/details"
+
+        if self.page.url != target_url:
+            self.page.goto(target_url)
+
+        try:
+            self.edit_info_button_locator.wait_for(state="visible", timeout=5000)
+            self.edit_info_button_locator.click()
+
+            self.first_name_input_locator.fill(first_name)
+            self.last_name_input_locator.fill(last_name)
+            self.save_info_button_locator.click()
+        except Exception as e:
+            print(f"The edit button is not visible on this url:{target_url}")
+            raise e
 
     def change_password(self, old_password, new_password):
         self.change_password_button_locator.click()

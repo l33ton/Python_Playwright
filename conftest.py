@@ -13,18 +13,11 @@ def login_page(base_url, page):
     page.goto(base_url + LOGIN_URL)
 
     yield LoginPage(page)
-@pytest.fixture
-def logged_in(login_page):
-    customer = TEST_VALID_USERS["employee"]
-    login_page.login(customer["username"], COMMON_PASSWORD)
-
-    return login_page.page
 
 @pytest.fixture
 def dashboard_page(page, base_url):
-    customer = TEST_VALID_USERS["customer"]
-    profile_url = PROFILE_URL.format(account_id=customer["account_id"])
-    page.goto(base_url + profile_url)
+    target_url = f"{base_url}{PROFILE_URL}"
+    page.goto(target_url)
     yield DashboardPage(page)
 
 @pytest.fixture
@@ -33,24 +26,43 @@ def vehicles_page(page, base_url):
     yield VehiclesPage(page)
 
 @pytest.fixture
-def change_to_original_name(dashboard_page, base_url):
-    yield
-    dashboard_page.navigate_to_profile(base_url + PROFILE_URL)
-    if not dashboard_page.edit_info_button_locator.is_visible():
-        dashboard_page.navigate_to_profile(base_url + PROFILE_URL)
+def change_to_original_name(dashboard_page, page, base_url):
 
-    if dashboard_page.edit_info_button_locator.is_visible():
-        dashboard_page.change_first_and_last_name(first_name="Alex", last_name="Rider")
+    yield
+    target_url = f"{base_url}{PROFILE_URL}"
+    page.goto(target_url)
+
+    try:
+        page.goto(target_url, wait_until="networkidle")
+
+        temporary_dashboard = DashboardPage(page)
+        if temporary_dashboard.edit_info_button_locator.is_visible(timeout=3000):
+            temporary_dashboard.change_first_and_last_name(first_name="George", last_name="Hill", base_url=base_url)
+            print("You have successfully change first and last name")
+        else:
+            print("You dont have permission to change first and last name")
+    except Exception as e:
+        print(f"Couldn't find the edit button on this url: {target_url}{e}")
 
 @pytest.fixture
-def change_password_to_common(base_url, dashboard_page, new_password):
+def change_password_to_common(page, base_url, dashboard_page, new_password):
     yield
-    dashboard_page.navigate_to_profile(base_url + PROFILE_URL)
-    if not dashboard_page.change_password_button_locator.is_visible():
-        dashboard_page.navigate_to_profile(base_url + PROFILE_URL)
+    target_url = f"{base_url}{PROFILE_URL}"
+    page.goto(target_url)
 
-    if dashboard_page.change_password_button_locator.is_visible():
-        dashboard_page.change_password(new_password, COMMON_PASSWORD)
+    try:
+        page.goto(target_url, wait_until="networkidle")
+
+        temporary_dashboard = DashboardPage(page)
+
+        if temporary_dashboard.change_password_button_locator.is_visible():
+            temporary_dashboard.change_password(new_password, COMMON_PASSWORD)
+            print("Password is changed to common")
+        else:
+            print("Oops, you don't have permission to change the password")
+    except Exception as e:
+        print(f"Couldn't find the edit button on this url: {target_url}{e}")
+
 
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args, request):
