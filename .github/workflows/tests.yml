@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-             pytest tests/web/auth_setup.py::test_save_auth_state --tracing retain-on-failure
+             pytest tests/web/auth_setup.py::test_save_auth_state
              pytest --tracing retain-on-failure --maxfail=3 --slowmo 500 --junitxml=results.xml
         env:
             PYTHONPATH: .
