@@ -6,9 +6,9 @@ from env_config import COMMON_PASSWORD
 @pytest.mark.skip_auth
 def test_login_with_valid_credentials(login_page):
     # Arrange
-    customer = TEST_VALID_USERS["customer"]
+    employee = TEST_VALID_USERS["employee"]
     # Act
-    login_page.login(customer["username"], COMMON_PASSWORD)
+    login_page.login(employee["username"], COMMON_PASSWORD)
     # Assert
     expect(login_page.page.locator(MY_DETAILS_LOCATOR)).to_be_visible()
 @pytest.mark.skip_auth

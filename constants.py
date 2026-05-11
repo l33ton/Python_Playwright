@@ -8,8 +8,8 @@ FORGOT_PASSWORD_LOCATOR = ".nounderline"
 MY_DETAILS_LOCATOR = "//a[normalize-space()='My Details']"
 
 TEST_VALID_USERS = {
-    "customer": {"username": "alex_rider", "account_id": "1"},
-    "employee": {"username": "george_hill", "account_id": "7"},
+    "customer": {"username": "alex_rider", "account_id": 1},
+    "employee": {"username": "george_hill", "account_id": 7},
     "mechanic": {"username": "julia_grey"}
 }
 TEST_MOCK_USERS = {

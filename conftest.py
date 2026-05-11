@@ -66,14 +66,12 @@ def change_password_to_common(page, base_url, dashboard_page, new_password):
 
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args, request):
-    if "skip_auth" in request.keywords:
-        return browser_context_args
+    if "auth_setup" in request.node.nodeid:
+        return {**browser_context_args, "storage_state": None}
 
     auth_path = os.path.join(os.getcwd(), "auth.json")
 
     if os.path.exists(auth_path):
-        return {
-            **browser_context_args,
-            "storage_state": auth_path
-        }
+        return {**browser_context_args, "storage_state": auth_path}
+
     return browser_context_args
