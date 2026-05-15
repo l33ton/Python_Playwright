@@ -1,7 +1,7 @@
 # LOGIN LOCATORS AND CONSTANTS
 
 USERNAME_INPUT_LOCATOR = "#login-username"
-PASSWORD_INPUT_LOCATOR = "#login-password"
+PASSWORD_INPUT_LOCATOR = "#password"
 LOGIN_URL = "auth/login"
 LOGIN_FORM_LOCATOR = "#login-form"
 FORGOT_PASSWORD_LOCATOR = ".nounderline"

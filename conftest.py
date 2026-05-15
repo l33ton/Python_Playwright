@@ -1,11 +1,12 @@
 import os
 import pytest
 
-from constants import LOGIN_URL, TEST_VALID_USERS, PROFILE_URL, NEW_PASSWORD, VEHICLE_URL
+from constants import LOGIN_URL , PROFILE_URL, VEHICLE_URL
 from pages.dashboard_page import DashboardPage
 from pages.login_page import LoginPage
 from env_config import COMMON_PASSWORD
 from pages.vehicles_page import VehiclesPage
+from utils.ai_helper import get_ai_diagnostic
 
 
 @pytest.fixture
@@ -75,3 +76,40 @@ def browser_context_args(browser_context_args, request):
         return {**browser_context_args, "storage_state": auth_path}
 
     return browser_context_args
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        page = item.funcargs.get('page')
+        if page:
+            ids_and_names = page.evaluate("""
+    () => Array.from(document.querySelectorAll('input, button, textarea, [role="button"]')).map(el => {
+        
+        return {
+            tag: el.tagName,
+            id: el.id || null,
+            name: el.getAttribute('name') || null,
+            placeholder: el.getAttribute('placeholder') || null,
+            type: el.type || null
+        };
+    }).filter(el => el.id || el.name || el.placeholder)
+""")
+            error_lines = str(report.longrepr)
+            clean_error = error_lines[-1] if error_lines else "Unknown error"
+            current_url = page.url
+
+            print("\n" + "-" * 50)
+            print("AI ANALYSING THE ERROR......")
+            advice = get_ai_diagnostic(clean_error, ids_and_names, current_url)
+            print(f"DEBUG: Sending {len(ids_and_names)} elements to AI")
+            print(advice)
+            print("-" * 50 + "\n")
+
+@pytest.fixture(scope="function", autouse=True)
+def set_playwright_timeout(page):
+
+    page.set_default_timeout(3000)
+    yield

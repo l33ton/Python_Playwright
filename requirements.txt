@@ -4,3 +4,4 @@ playwright
 pytest
 python-dotenv
 faker
+ollama
